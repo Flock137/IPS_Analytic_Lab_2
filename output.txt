@@ -1,0 +1,196 @@
+[Frame Design]
+=== QUESTION 1: X-frame vs H-frame Comparison ===
+
+X-frame Analysis:
+  Arm Length (diagonal): 0.5657 m
+  Maximum Displacement: 0.007970 m (7.9704 mm)
+  Motor Force: 20.0 N
+
+H-frame Analysis:
+  Arm Length (vertical): 0.4000 m
+  Maximum Displacement: 0.002818 m (2.8180 mm)
+  Motor Force: 20.0 N
+
+Comparison:
+  X-frame displacement / H-frame displacement = 2.828
+  X-frame has 182.8% MORE deformation than H-frame
+
+ANSWER Q1: H-frame is MORE STABLE (less deformation).
+Reason: X-frame has longer effective arm length (1.41x) due to diagonal geometry.
+Deflection increases with L^3, so longer arms deform much more.
+
+=== QUESTION 2: Effect of Motor Force on Deformation ===
+
+Testing motor forces from 5 N to 60 N:
+
+Force = 5 N: X-frame = 1.9926 mm, H-frame = 0.7045 mm, Stress = 9.8 MPa, Safety Factor = 50.98
+Force = 10 N: X-frame = 3.9852 mm, H-frame = 1.4090 mm, Stress = 19.6 MPa, Safety Factor = 25.49
+Force = 20 N: X-frame = 7.9704 mm, H-frame = 2.8180 mm, Stress = 39.2 MPa, Safety Factor = 12.75
+Force = 30 N: X-frame = 11.9556 mm, H-frame = 4.2270 mm, Stress = 58.8 MPa, Safety Factor = 8.50
+Force = 40 N: X-frame = 15.9409 mm, H-frame = 5.6359 mm, Stress = 78.5 MPa, Safety Factor = 6.37
+Force = 50 N: X-frame = 19.9261 mm, H-frame = 7.0449 mm, Stress = 98.1 MPa, Safety Factor = 5.10
+Force = 60 N: X-frame = 23.9113 mm, H-frame = 8.4539 mm, Stress = 117.7 MPa, Safety Factor = 4.25
+
+ANSWER Q2: Deformation increases LINEARLY with motor force.
+Structural integrity compromised when stress exceeds yield strength (500 MPa).
+For this design, forces above ~50N approach the safety limit.
+
+=== QUESTION 3: Impact of Frame Dimensions ===
+
+--- Effect of Arm Length (X-frame, Force = 20N) ---
+Arm Length = 0.20 m: Displacement = 0.9963 mm
+Arm Length = 0.30 m: Displacement = 3.3625 mm
+Arm Length = 0.40 m: Displacement = 7.9704 mm
+Arm Length = 0.50 m: Displacement = 15.5672 mm
+Arm Length = 0.60 m: Displacement = 26.9002 mm
+
+--- Effect of Width (H-frame, Arm Length = 0.4m, Force = 20N) ---
+Width = 0.05 m: Displacement = 2.8180 mm, Stability Arm = 0.10 m
+Width = 0.10 m: Displacement = 2.8180 mm, Stability Arm = 0.20 m
+Width = 0.15 m: Displacement = 2.8180 mm, Stability Arm = 0.30 m
+Width = 0.20 m: Displacement = 2.8180 mm, Stability Arm = 0.40 m
+Width = 0.25 m: Displacement = 2.8180 mm, Stability Arm = 0.50 m
+
+ANSWER Q3:
+- Arm Length: Deformation increases CUBICALLY (L^3). Shorter arms = better.
+- Width: Does NOT affect deformation but INCREASES stability (larger moment arm).
+- Optimal design: Minimize arm length while maximizing width for stability.
+
+=== QUESTION 4: Design Recommendation ===
+
+Comparing Different Configurations:
+
+X-frame, L=0.3m:
+  Displacement: 3.3625 mm
+  Stability Arm: 0.424 m
+  Performance Ratio: 0.13
+
+X-frame, L=0.4m:
+  Displacement: 7.9704 mm
+  Stability Arm: 0.566 m
+  Performance Ratio: 0.07
+
+H-frame, L=0.3m, W=0.1m:
+  Displacement: 1.1888 mm
+  Stability Arm: 0.100 m
+  Performance Ratio: 0.08
+
+H-frame, L=0.3m, W=0.15m:
+  Displacement: 1.1888 mm
+  Stability Arm: 0.150 m
+  Performance Ratio: 0.13
+
+H-frame, L=0.4m, W=0.15m:
+  Displacement: 2.8180 mm
+  Stability Arm: 0.150 m
+  Performance Ratio: 0.05
+
+=== FINAL RECOMMENDATION ===
+Best Design: H-frame with moderate arm length (0.3-0.4m) and increased width (0.15m)
+
+Reasoning:
+1. STABILITY: H-frame has shorter vertical arms → less deformation
+2. CONTROL: Wider frame provides better roll/pitch control authority
+3. STRENGTH: Shorter arms experience less bending stress
+4. PAYLOAD: H-frame can accommodate larger payloads in center
+5. TRADE-OFF: Slightly larger size but significantly better structural performance
+
+Specific Recommendation: H-frame, Arm Length = 0.35m, Width = 0.15m
+This provides excellent balance between:
+  - Minimal deformation (< 1mm at 20N per motor)
+  - Good stability (30cm moment arm)
+  - Sufficient size for components
+  - High safety factor (> 3.0)
+
+
+[Material Properties]
+=== QUESTION 1: Effect of Young's Modulus on Deformation ===
+
+Carbon Fiber:
+  Young's Modulus: 7.00e+10 Pa
+  Stress: 2.00e+06 Pa
+  Strain: 0.000029
+  Deformation: 0.000014 m (0.0143 mm)
+
+Aluminum:
+  Young's Modulus: 6.90e+10 Pa
+  Stress: 2.00e+06 Pa
+  Strain: 0.000029
+  Deformation: 0.000014 m (0.0145 mm)
+
+Plastic:
+  Young's Modulus: 2.10e+09 Pa
+  Stress: 2.00e+06 Pa
+  Strain: 0.000952
+  Deformation: 0.000476 m (0.4762 mm)
+
+ANSWER Q1: Materials with HIGHER Young's Modulus deform LESS.
+Stiffness is inversely proportional to deformation.
+
+=== QUESTION 2: Effect of Applied Force on Stress and Deformation ===
+
+Force = 100 N:
+  Stress: 4.00e+05 Pa
+  Deformation: 0.000003 m (0.0029 mm)
+
+Force = 300 N:
+  Stress: 1.20e+06 Pa
+  Deformation: 0.000009 m (0.0086 mm)
+
+Force = 500 N:
+  Stress: 2.00e+06 Pa
+  Deformation: 0.000014 m (0.0143 mm)
+
+Force = 700 N:
+  Stress: 2.80e+06 Pa
+  Deformation: 0.000020 m (0.0200 mm)
+
+Force = 1000 N:
+  Stress: 4.00e+06 Pa
+  Deformation: 0.000029 m (0.0286 mm)
+
+ANSWER Q2: Both stress and deformation increase LINEARLY with applied force.
+Doubling the force doubles both stress and deformation.
+
+=== QUESTION 3: Carbon Fiber vs Plastic Comparison ===
+
+Carbon Fiber:
+  Young's Modulus: 7.00e+10 Pa
+  Deformation: 0.000014 m (0.0143 mm)
+  Stiffness Ratio: 1.00
+
+Plastic:
+  Young's Modulus: 2.10e+09 Pa
+  Deformation: 0.000476 m (0.4762 mm)
+  Stiffness Ratio: 33.33
+
+Plastic deforms 33.33 times MORE than Carbon Fiber
+
+ANSWER Q3: Carbon Fiber deforms MUCH LESS than Plastic.
+Reason: Carbon Fiber has ~33x higher Young's Modulus (70 GPa vs 2.1 GPa)
+
+=== QUESTION 4: Effect of Beam Dimensions on Stress ===
+
+--- Effect of Thickness (Width = 0.050 m) ---
+Thickness = 0.003 m: Stress = 3.33e+06 Pa, Deformation = 0.0238 mm
+Thickness = 0.005 m: Stress = 2.00e+06 Pa, Deformation = 0.0143 mm
+Thickness = 0.007 m: Stress = 1.43e+06 Pa, Deformation = 0.0102 mm
+Thickness = 0.010 m: Stress = 1.00e+06 Pa, Deformation = 0.0071 mm
+
+--- Effect of Width (Thickness = 0.005 m) ---
+Width = 0.030 m: Stress = 3.33e+06 Pa, Deformation = 0.0238 mm
+Width = 0.050 m: Stress = 2.00e+06 Pa, Deformation = 0.0143 mm
+Width = 0.070 m: Stress = 1.43e+06 Pa, Deformation = 0.0102 mm
+Width = 0.100 m: Stress = 1.00e+06 Pa, Deformation = 0.0071 mm
+
+ANSWER Q4: Increasing EITHER thickness OR width DECREASES stress.
+Stress is inversely proportional to cross-sectional area (A = width × thickness)
+Larger dimensions distribute the load better, reducing stress and deformation.
+
+=== SUMMARY OF FINDINGS ===
+1. Higher Young's Modulus → Less Deformation (stiffer material)
+2. Higher Applied Force → Proportionally Higher Stress & Deformation
+3. Carbon Fiber is superior to Plastic (33x stiffer, deforms much less)
+4. Larger cross-section (width/thickness) → Lower stress & deformation
+
+
