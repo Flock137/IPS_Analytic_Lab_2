@@ -1,372 +1,212 @@
-# Lab 2: Frame Design, Materials, and Structural Integrity
-## Quadcopter Engineering Lab Report
-
-**Student Name:** [Your Name]  
-**Student ID:** [Your ID]  
-**Date:** [Date]  
-**Instructor:** Dr. Nidal Kamel  
-**Course:** [Course Code and Name]
-
----
-
-## Executive Summary
-
-[Write a brief 3-4 sentence summary of the lab objectives, methodology, and key findings. This should give readers a quick overview of what was done and what was discovered.]
-
----
-
-## Table of Contents
-
-1. [Introduction](#introduction)
-2. [Lab Exercise 1: Material Properties Simulation](#lab-exercise-1-material-properties-simulation)
-3. [Lab Exercise 2: Frame Design and Simulation](#lab-exercise-2-frame-design-and-simulation)
-4. [Conclusion](#conclusion)
-5. [References](#references)
-
----
 
 ## Introduction
 
-### Objectives
+This lab focuses on using MATLAB to simulate and analyze the structural behavior of quadcopter frames under different loading conditions. The main goal is to understand how material choices and frame designs affect structural integrity and performance. In the first exercise, you'll test different materials (carbon fiber, aluminum, and plastic) to see how they respond to applied forces by measuring stress, strain, and deformation. The second exercise compares X-frame and H-frame configurations to determine which design handles motor thrust loads better. By the end of this lab, you'll know how to use MATLAB for structural simulation and make better design decisions based on material properties and frame geometry.
 
-The objectives of this laboratory session were to:
-- Simulate the stresses and strains experienced by quadcopter frame components under load using MATLAB
-- Compare mechanical properties of different materials (carbon fiber, aluminum, and plastic)
-- Analyze and compare different frame configurations (X-frame vs H-frame)
-- Evaluate structural integrity under various loading conditions
-- Develop design recommendations for optimal quadcopter frame construction
 
-### Background Theory
+## Material Properties Simulation
 
-[Provide a brief overview of the theoretical concepts covered. Include topics such as:]
-- Young's Modulus and material stiffness
-- Stress and strain relationships
-- Cantilever beam deflection theory
-- Structural integrity and safety factors
-- Frame geometry effects on load distribution
+### Question 1
 
----
+_How does increasing the Young's Modulus (stiffer material) affect the beam's deformation?_
 
-## Lab Exercise 1: Material Properties Simulation
+![[Young_mod-matDeform.png]]
 
-### Methodology
+The left panel shows Young's Modulus comparison across three materials, while the right panel displays the resulting deformation under the same 500N force. Increasing Young's Modulus significantly decreases deformation:
 
-**Materials Tested:**
-- Carbon Fiber (E = 70 GPa, ρ = 1600 kg/m³, σ_tensile = 500 MPa)
-- Aluminum (E = 69 GPa, ρ = 2700 kg/m³, σ_tensile = 310 MPa)
-- Plastic/ABS (E = 2.1 GPa, ρ = 1020 kg/m³, σ_tensile = 40 MPa)
+- Carbon Fiber (E = 70 GPa): 0.0143 mm
+- Aluminum (E = 69 GPa): 0.0145 mm
+- Plastic (E = 2.1 GPa): 0.4762 mm
 
-**Test Configuration:**
-- Beam Length: 0.5 m
-- Beam Width: 0.05 m
-- Beam Thickness: 0.005 m
-- Applied Force: 500 N
+Carbon fiber and aluminum show high (~70 GPa) stiffness but low of deformation. Plastic shows the opposite: a short stiffness bar (~2 GPa) but dominates the deformation chart at 0.5 mm. Plastic, with 33 times lower stiffness, deforms 33 times more under the same load because deformation is inversely proportional to Young's Modulus (δ = (σ/E) × L). This demonstrates why high-modulus materials are essential for structural applications requiring minimal flex.
 
-**Simulation Procedure:**
-1. Material properties were defined in MATLAB
-2. A 2D beam model was created with specified dimensions
-3. Forces were applied and stress/strain/deformation calculated
-4. Results were visualized and compared across materials
+### Question 2
 
-### Results
+_What impact does increasing the applied force have on the stress and deformation?_
 
-#### Analysis Question 1: Effect of Young's Modulus on Deformation
+![[carbon_fiber.png]]
+Both line plots show perfectly linear behavior. Stress and deformation increase linearly with applied force:
 
-**Findings:**
-[Insert your results here. Include numerical data from your MATLAB output]
+|Force (N)|Stress (MPa)|Deformation (mm)|
+|---|---|---|
+|100|0.4|0.0029|
+|300|1.2|0.0086|
+|500|2.0|0.0143|
+|700|2.8|0.0200|
+|1000|4.0|0.0286|
 
-| Material | Young's Modulus (GPa) | Stress (MPa) | Strain | Deformation (mm) |
-|----------|----------------------|--------------|---------|------------------|
-| Carbon Fiber | 70 | [value] | [value] | [value] |
-| Aluminum | 69 | [value] | [value] | [value] |
-| Plastic | 2.1 | [value] | [value] | [value] |
+The straight-line plots confirm textbook linear behavior - doubling force doubles both stress and deformation. It follows Hooke's Law and shows carbon fiber remains in its elastic region across this force range. This predictability is useful for design since the response can be calculated at any load through simple multiplication. However, this only holds until the material reaches yield strength.
 
-**Figure 1:** Young's Modulus Comparison
-[Insert screenshot of bar chart comparing Young's Modulus]
+### Question 3
 
-**Figure 2:** Deformation Comparison Under Same Load
-[Insert screenshot of deformation comparison plot]
+_Compare the deformation of the beam when using Carbon Fiber versus Plastic. Which material deforms less, and why?_
 
-**Analysis:**
-[Write your analysis here. Explain how increasing Young's Modulus affects deformation. Use data from your table to support your explanation.]
+![[Deform-Young_modulus.png]]
+Carbon fiber deforms **33.33 times less** than plastic:
 
----
+- **Carbon Fiber**: 0.0143 mm
+- **Plastic**: 0.4762 mm
 
-#### Analysis Question 2: Impact of Applied Force on Stress and Deformation
+The reason is the enormous stiffness gap shown in the right panel - Carbon Fiber (70 GPa) vs Plastic (2.1 GPa), a 33x ratio. Since deformation is inversely proportional to Young's Modulus, a material with 1/33rd the stiffness experiences 33x the deformation. For quadcopter frames, plastic would cause excessive flexing, poor control, vibrations, and potential failure. Carbon fiber's better stiffness makes it the clear choice for aerospace applications despite higher cost.
 
-**Findings:**
-[Insert your results here]
+### Question 4
 
-| Applied Force (N) | Stress (MPa) | Deformation (mm) |
-|-------------------|--------------|------------------|
-| 100 | [value] | [value] |
-| 300 | [value] | [value] |
-| 500 | [value] | [value] |
-| 700 | [value] | [value] |
-| 1000 | [value] | [value] |
+_How does changing the beam's thickness or width influence the stress distribution and overall structural behavior?_
 
-**Figure 3:** Stress vs Applied Force
-[Insert screenshot]
+![[material_strength_compare.png]]
 
-**Figure 4:** Deformation vs Applied Force
-[Insert screenshot]
+![[width-thickness_onStress.png]]
 
-**Analysis:**
-[Explain the relationship between applied force and both stress and deformation. Describe whether the relationship is linear, exponential, etc., and explain why.]
+The tensile strength chart shows Carbon Fiber (500 MPa) and Aluminum (310 MPa) far exceed Plastic (40 MPa). The two stress curves demonstrate inverse relationships - both curve downward hyperbolically as dimensions increase.
 
----
+**Effect of Thickness** (width = 0.05m):
 
-#### Analysis Question 3: Carbon Fiber vs Plastic Comparison
+|Thickness (mm)|Stress (MPa)|Deformation (mm)|
+|---|---|---|
+|3|3.33|0.0238|
+|5|2.00|0.0143|
+|7|1.43|0.0102|
+|10|1.00|0.0071|
 
-**Findings:**
+**Effect of Width** (thickness = 0.005m):
 
-| Material | Young's Modulus (GPa) | Deformation (mm) | Deformation Ratio |
-|----------|----------------------|------------------|-------------------|
-| Carbon Fiber | 70 | [value] | 1.0x |
-| Plastic | 2.1 | [value] | [value]x |
+|Width (mm)|Stress (MPa)|Deformation (mm)|
+|---|---|---|
+|30|3.33|0.0238|
+|50|2.00|0.0143|
+|70|1.43|0.0102|
+|100|1.00|0.0071|
 
-**Figure 5:** Carbon Fiber vs Plastic Deformation
-[Insert screenshot]
+Both show identical patterns with more than three times of stress reduction across the range. This confirms stress is inversely proportional to cross-sectional area ($\sigma = F/A$). Doubling either dimension halves stress and deformation. The curves flatten at larger dimensions showing diminishing returns. For design, increasing dimensions reduces stress but adds weight and cost, and us - engineers - must balance these trade-offs.
 
-**Analysis:**
-[Compare the two materials. Explain which material deforms less and WHY, referencing the relationship between Young's Modulus and stiffness.]
+## Frame Design and Simulation
 
----
+### Question 1
 
-#### Analysis Question 4: Effect of Beam Dimensions on Stress
+_Frame Type Comparison - How does the X-frame compare to the H-frame in terms of deformation under the same applied forces? Which configuration appears to be more stable, and why?_
 
-**Effect of Thickness:**
+![[H_frame.png]]
 
-| Thickness (mm) | Cross-Sectional Area (m²) | Stress (MPa) | Deformation (mm) |
-|----------------|---------------------------|--------------|------------------|
-| 3 | [value] | [value] | [value] |
-| 5 | [value] | [value] | [value] |
-| 7 | [value] | [value] | [value] |
-| 10 | [value] | [value] | [value] |
+![[X_frame.png]]
 
-**Effect of Width:**
+The H-frame is significantly more stable, showing 64.6% less deformation at 20N per motor:
 
-| Width (mm) | Cross-Sectional Area (m²) | Stress (MPa) | Deformation (mm) |
-|------------|---------------------------|--------------|------------------|
-| 30 | [value] | [value] | [value] |
-| 50 | [value] | [value] | [value] |
-| 70 | [value] | [value] | [value] |
-| 100 | [value] | [value] | [value] |
+- **X-frame**: 7.97 mm displacement
+- **H-frame**: 2.82 mm displacement
+- **Ratio**: X-frame deforms 2.83x more
 
-**Figure 6:** Effect of Thickness on Stress
-[Insert screenshot]
+This is purely geometric. The X-frame's diagonal motors create 0.566m effective arms (√2 × 0.4m) while the H-frame has 0.4m vertical arms. Since deflection follows δ ∝ L³, the X-frame's 1.41x longer arms cause 2.83x more deformation (1.41³ ≈ 2.8). The visualizations show both frames deflect inward and downward at motor points, but the X-frame's displacement is nearly three times larger. This makes the H-frame better for precise control, sensor stability, and payload carrying.
 
-**Figure 7:** Effect of Width on Stress
-[Insert screenshot]
+### Question 2
 
-**Analysis:**
-[Explain how changing beam dimensions affects stress distribution. Discuss the inverse relationship between cross-sectional area and stress.]
+_Effect of Motor Force - What happens to the deformation of the frame when you increase the motor force? At what point do you think the structural integrity of the frame could be compromised?_
 
----
+![[deform_motorF.png]]
 
-### Summary of Lab Exercise 1
+Frame deformation increases linearly with motor force - doubling thrust doubles deflection:
 
-[Provide a brief summary of key findings from the material properties simulation. Highlight which material performed best and why.]
+|Force (N)|X-frame (mm)|H-frame (mm)|Stress (MPa)|Safety Factor|
+|---|---|---|---|---|
+|5|1.99|0.70|9.8|50.98|
+|20|7.97|2.82|39.2|12.75|
+|40|15.94|5.64|78.5|6.37|
+|50|19.93|7.04|98.1|5.10|
+|60|23.91|8.45|117.7|4.25|
 
----
+The stress plot shows actual stress (green) staying well below yield strength (500 MPa red line) even at 60N (safety factor 4.25). However, structural integrity would be compromised around 50-60N not from material failure but excessive deformation. At 60N, the X-frame deflects 24mm - this would cause vibrations, reduced control precision, sensor errors, and potential oscillations. While the frame survives up to ~250N before yielding, practical limits occur much earlier. Staying below 40-50N per motor (safety factor > 6, deformation < 16mm) is advisable.
 
-## Lab Exercise 2: Frame Design and Simulation
+### Question 3
 
-### Methodology
+_Impact of Frame Dimensions - How do changes in the arm length or width of the frame impact the load distribution and deformation? Which design choices minimize deformation while maintaining structural strength?_
 
-**Frame Configurations Tested:**
-- X-frame: Symmetrical arms at 45° angles
-- H-frame: Horizontal and vertical arms
+![[frame_deformation.png]]
 
-**Test Parameters:**
-- Base Arm Length: 0.4 m
-- Frame Width (H-frame): 0.1 m
-- Motor Force: 20 N per motor
-- Material: Carbon Fiber (E = 70 GPa)
-- Beam Properties: 15mm diameter, 3mm wall thickness
+**Arm Length Impact (X-frame):**
 
-**Simulation Procedure:**
-1. Frame geometries were defined for both X-frame and H-frame
-2. Motor forces were applied to simulate flight conditions
-3. Cantilever beam deflection theory was used to calculate deformations
-4. Various configurations and forces were tested
-5. Results were visualized and compared
+Cubic effect on arm deformation (L³ relationship):
 
-### Results
+|Arm Length (m)|Displacement (mm)|Increase Factor|
+|---|---|---|
+|0.2|1.00|1x (baseline)|
+|0.3|3.36|3.4x|
+|0.4|7.97|8.0x|
+|0.5|15.57|15.6x|
+|0.6|26.90|27.0x|
 
-#### Analysis Question 1: Frame Type Comparison
+The exponential growth curve shows why minimizing arm length is crucial. Reducing arms from 0.6m to 0.3m cuts deformation by a factor of 8 - this is the single most powerful design lever for improving structural rigidity.
 
-**Findings:**
+**Width Impact (H-frame):**
 
-| Frame Type | Effective Arm Length (m) | Maximum Displacement (mm) | Relative Deformation |
-|------------|-------------------------|---------------------------|----------------------|
-| X-frame | [value] | [value] | [value]x |
-| H-frame | [value] | [value] | 1.0x |
+Width has no effect on vertical deformation - the plot shows a perfectly flat line at 2.82mm across all widths (0.05m to 0.25m). This is because width doesn't change the cantilever arm length; motors remain 0.4m away vertically regardless of horizontal spacing.
 
-**Figure 8:** X-frame Original vs Deformed
-[Insert screenshot]
+However, width improves stability through increased moment arms:
 
-**Figure 9:** H-frame Original vs Deformed
-[Insert screenshot]
+- Width = 0.05m → Stability arm = 0.10m (left-right motor spacing)
+- Width = 0.25m → Stability arm = 0.50m (5x improvement)
 
-**Figure 10:** Frame Deformation Comparison
-[Insert screenshot of bar chart]
+Larger width provides better roll/pitch control authority, helping the quadcopter resist and correct rotational disturbances more effectively.
 
-**Analysis:**
-[Compare the two frame types. Explain which is more stable and WHY. Discuss the role of effective arm length and the L³ relationship in beam deflection.]
+**Optimal Design Strategy:**
 
----
+1. **Minimize arm length** - Shortest arms that still provide adequate motor clearance and component space
+2. **Maximize width** - Widest practical spacing for enhanced control authority without aerodynamic penalties
+3. **Balance trade-offs** - Very short arms may limit payload volume; very wide frames increase drag and reduce portability
 
-#### Analysis Question 2: Effect of Motor Force on Structural Integrity
+The ideal configuration uses the minimum arm length necessary (around 0.3-0.35m) combined with maximized width (0.15-0.20m) to achieve both rigidity and excellent control characteristics.
 
-**Findings:**
 
-| Motor Force (N) | X-frame Displacement (mm) | H-frame Displacement (mm) | Bending Stress (MPa) | Safety Factor |
-|-----------------|---------------------------|---------------------------|----------------------|---------------|
-| 5 | [value] | [value] | [value] | [value] |
-| 10 | [value] | [value] | [value] | [value] |
-| 20 | [value] | [value] | [value] | [value] |
-| 30 | [value] | [value] | [value] | [value] |
-| 40 | [value] | [value] | [value] | [value] |
-| 50 | [value] | [value] | [value] | [value] |
-| 60 | [value] | [value] | [value] | [value] |
+### Question 4
 
-**Figure 11:** Deformation vs Motor Force
-[Insert screenshot]
+_Design Recommendation - Based on your observations, which frame type and dimensions would you recommend for a quadcopter design that prioritizes stability and minimal deformation? Explain your reasoning using the results from the simulations._
 
-**Figure 12:** Bending Stress vs Motor Force
-[Insert screenshot showing stress approaching yield strength]
+![[deform_stability.png]]
 
-**Analysis:**
-[Explain how deformation changes with increasing motor force. Identify at what force level structural integrity becomes compromised, using the yield strength and safety factor calculations.]
+Recommendation: H-frame with Arm Length = 0.35m and Width = 0.15m
 
----
+This configuration provides the optimal balance of structural rigidity, control authority, and practical utility based on the following analysis:
 
-#### Analysis Question 3: Impact of Frame Dimensions
+**Comparison of Key Configurations:**
 
-**Effect of Arm Length (X-frame):**
+|Configuration|Displacement (mm)|Stability Arm (m)|Performance Ratio|
+|---|---|---|---|
+|X-frame, L=0.3m|3.36|0.424|0.13|
+|X-frame, L=0.4m|7.97|0.566|0.07|
+|H-frame, L=0.3m, W=0.1m|1.19|0.100|0.08|
+|H-frame, L=0.3m, W=0.15m|1.19|0.150|**0.13**|
+|H-frame, L=0.4m, W=0.15m|2.82|0.150|0.05|
 
-| Arm Length (m) | Maximum Displacement (mm) | Relative Deformation |
-|----------------|---------------------------|----------------------|
-| 0.2 | [value] | [value] |
-| 0.3 | [value] | [value] |
-| 0.4 | [value] | [value] |
-| 0.5 | [value] | [value] |
-| 0.6 | [value] | [value] |
+**Reasoning:**
 
-**Effect of Width (H-frame):**
+1. **Structural Rigidity**: The H-frame demonstrates 2.83x less deformation than an equivalent X-frame. This translates directly to better sensor stability, reduced vibrations, and more precise flight control.
 
-| Width (m) | Maximum Displacement (mm) | Stability Arm (m) |
-|-----------|---------------------------|-------------------|
-| 0.05 | [value] | [value] |
-| 0.10 | [value] | [value] |
-| 0.15 | [value] | [value] |
-| 0.20 | [value] | [value] |
-| 0.25 | [value] | [value] |
+2. **Control Authority**: The 0.15m width provides a 0.30m moment arm between left/right motors - this gives strong roll control for aggressive maneuvers and quick disturbance rejection while avoiding the diminishing returns and added drag of wider configurations.
 
-**Figure 13:** Effect of Arm Length on Deformation
-[Insert screenshot]
+3. **Optimal Size Trade-off**: While the L=0.3m, W=0.15m H-frame achieves the best performance ratio (0.13), extending to 0.35m arm length provides crucial benefits:
+    - More interior space for battery, flight controller, and payload mounting
+    - Better prop clearance from the frame
+    - Only modest deformation penalty (~1.8mm estimated vs. 1.19mm)
 
-**Figure 14:** Effect of Width on Frame Stability
-[Insert screenshot]
+4. **Robust Safety Margins**: At 20N per motor, this design maintains:
+    - Deformation < 2mm (minimal flex)
+    - Stress << 40 MPa (safety factor > 10)
+    - Ample margin for dynamic loads, gusts, and maneuvers
 
-**Analysis:**
-[Discuss how arm length affects deformation (cubic relationship). Explain how width affects stability but not deformation. Identify optimal design parameters.]
+5. **Practical Advantages**:
+    - Rectangular geometry simplifies component mounting and wiring
+    - Flat sides accommodate larger batteries and cameras
+    - Straight arms are easier to manufacture and repair than angled X-frame arms
+    - Better protection of center components during hard landings
 
----
-
-#### Analysis Question 4: Design Recommendation
-
-**Configuration Comparison:**
-
-| Configuration | Displacement (mm) | Stability Arm (m) | Performance Ratio | Overall Rating |
-|---------------|-------------------|-------------------|-------------------|----------------|
-| X-frame, L=0.3m | [value] | [value] | [value] | [rating] |
-| X-frame, L=0.4m | [value] | [value] | [value] | [rating] |
-| H-frame, L=0.3m, W=0.1m | [value] | [value] | [value] | [rating] |
-| H-frame, L=0.3m, W=0.15m | [value] | [value] | [value] | [rating] |
-| H-frame, L=0.4m, W=0.15m | [value] | [value] | [value] | [rating] |
-
-**Figure 15:** Configuration Performance Comparison
-[Insert screenshot]
-
-**Recommended Design:**
-[State your recommended frame type and dimensions]
-
-**Justification:**
-[Provide detailed reasoning for your recommendation based on:]
-- Structural stability (minimal deformation)
-- Control authority (moment arm for roll/pitch)
-- Strength (stress levels and safety factors)
-- Practical considerations (size, weight, payload capacity)
-- Trade-offs between different design parameters
-
----
-
-### Summary of Lab Exercise 2
-
-[Provide a brief summary of key findings from the frame design simulation. Highlight the optimal configuration and why it was selected.]
-
----
+**Trade-offs**: The H-frame has a slightly larger footprint than a compact X-frame, which may reduce portability. However, the substantial structural and control benefits far outweigh this minor inconvenience for most applications.
 
 ## Conclusion
 
-### Key Findings
+This lab provided hands-on experience in analyzing quadcopter frame structures using MATLAB simulations. Key findings: carbon fiber deforms 33x less than plastic due to superior Young's Modulus; stress and deformation scale linearly with force; H-frame offers 2.83x better rigidity than X-frame due to shorter arms; arm length affects deformation cubically while width enhances control authority.
 
-[Summarize the most important results from both lab exercises. Include:]
-1. Material selection implications
-2. Frame configuration recommendations
-3. Design parameter optimization
-4. Structural integrity considerations
+The skills developed - simulation setup, result interpretation, parameter identification, and evidence-based recommendations - apply broadly across engineering. Most importantly, computational simulation enables exploring design alternatives and optimizing configurations before building prototypes, saving time and money. The recommended H-frame design (L=0.35m, W=0.15m) emerged from systematic analysis, providing optimal balance of rigidity, control authority, and practical utility for real-world quadcopter applications.
 
-### Lessons Learned
 
-[Discuss what you learned about:]
-- The relationship between material properties and structural performance
-- How frame geometry affects stability and deformation
-- The importance of safety factors in engineering design
-- Trade-offs in quadcopter frame design
+## Appendix: MATLAB scripts
 
-### Applications
-
-[Explain how these findings can be applied to real-world quadcopter design and other engineering applications.]
-
-### Future Work
-
-[Suggest potential improvements or additional experiments that could be conducted, such as:]
-- Testing additional materials
-- Analyzing dynamic loads during flight
-- Investigating vibration effects
-- Optimizing for minimum weight while maintaining strength
-
----
-
-## References
-
-1. Lab Manual: "Lab 2: Frame Design, Materials, and Structural Integrity" by Dr. Nidal Kamel
-2. MATLAB Documentation: Structural Analysis Toolbox
-3. [Add any additional references you used]
-
----
-
-## Appendices
-
-### Appendix A: MATLAB Code - Material Properties Simulation
-
-```matlab
-[Include your complete MATLAB code here or reference it as an attachment]
-```
-
-### Appendix B: MATLAB Code - Frame Design and Simulation
-
-```matlab
-[Include your complete MATLAB code here or reference it as an attachment]
-```
-
-### Appendix C: Additional Figures
-
-[Include any additional plots or screenshots that support your analysis but weren't included in the main report]
-
----
-
-**End of Report**
+1. [Material Properties Simulation Adjusted Code](https://github.com/Flock137/IPS_Analytic_Lab_2/blob/main/Matlab/MaterialProperties.m)
+2. [Frame Design and Simulation Adjusted Code](https://github.com/Flock137/IPS_Analytic_Lab_2/blob/main/Matlab/FrameDesign.m)
