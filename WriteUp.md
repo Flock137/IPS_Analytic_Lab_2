@@ -42,7 +42,7 @@ The straight-line plots confirm textbook linear behavior - doubling force double
 
 _Compare the deformation of the beam when using Carbon Fiber versus Plastic. Which material deforms less, and why?_
 
-![[Deform-Young_modulus.png]]
+![[[Deform-Young_modulus.png](https://github.com/Flock137/IPS_Analytic_Lab_2/blob/main/Assets/Material%20Properties/Deform-Young_modulus.png)]]
 Carbon fiber deforms **33.33 times less** than plastic:
 
 - **Carbon Fiber**: 0.0143 mm
