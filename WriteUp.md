@@ -42,7 +42,7 @@ The straight-line plots confirm textbook linear behavior - doubling force double
 
 _Compare the deformation of the beam when using Carbon Fiber versus Plastic. Which material deforms less, and why?_
 
-![[[Deform-Young_modulus.png](https://github.com/Flock137/IPS_Analytic_Lab_2/blob/main/Assets/Material%20Properties/Deform-Young_modulus.png)]]
+![Deform-Young_modulus.png](https://github.com/Flock137/IPS_Analytic_Lab_2/blob/main/Assets/Material%20Properties/Deform-Young_modulus.png)
 Carbon fiber deforms **33.33 times less** than plastic:
 
 - **Carbon Fiber**: 0.0143 mm
@@ -54,9 +54,9 @@ The reason is the enormous stiffness gap shown in the right panel - Carbon Fiber
 
 _How does changing the beam's thickness or width influence the stress distribution and overall structural behavior?_
 
-![[material_strength_compare.png]]
+![material_strength_compare.png](https://github.com/Flock137/IPS_Analytic_Lab_2/blob/main/Assets/Material%20Properties/material_strength_compare.png)
 
-![[width-thickness_onStress.png]]
+![width-thickness_onStress.png](https://github.com/Flock137/IPS_Analytic_Lab_2/blob/main/Assets/Material%20Properties/width-thickness_onStress.png)
 
 The tensile strength chart shows Carbon Fiber (500 MPa) and Aluminum (310 MPa) far exceed Plastic (40 MPa). The two stress curves demonstrate inverse relationships - both curve downward hyperbolically as dimensions increase.
 
@@ -86,9 +86,9 @@ Both show identical patterns with more than three times of stress reduction acro
 
 _Frame Type Comparison - How does the X-frame compare to the H-frame in terms of deformation under the same applied forces? Which configuration appears to be more stable, and why?_
 
-![[H_frame.png]]
+![H_frame.png](https://github.com/Flock137/IPS_Analytic_Lab_2/blob/main/Assets/Frame%20Design/H_frame.png)
 
-![[X_frame.png]]
+![X_frame.png](https://github.com/Flock137/IPS_Analytic_Lab_2/blob/main/Assets/Frame%20Design/X_frame.png)
 
 The H-frame is significantly more stable, showing 64.6% less deformation at 20N per motor:
 
@@ -102,7 +102,7 @@ This is purely geometric. The X-frame's diagonal motors create 0.566m effective 
 
 _Effect of Motor Force - What happens to the deformation of the frame when you increase the motor force? At what point do you think the structural integrity of the frame could be compromised?_
 
-![[deform_motorF.png]]
+![deform_motorF.png](https://github.com/Flock137/IPS_Analytic_Lab_2/blob/main/Assets/Frame%20Design/deform_motorF.png)
 
 Frame deformation increases linearly with motor force - doubling thrust doubles deflection:
 
@@ -120,7 +120,7 @@ The stress plot shows actual stress (green) staying well below yield strength (5
 
 _Impact of Frame Dimensions - How do changes in the arm length or width of the frame impact the load distribution and deformation? Which design choices minimize deformation while maintaining structural strength?_
 
-![[frame_deformation.png]]
+![frame_deformation.png](https://github.com/Flock137/IPS_Analytic_Lab_2/blob/main/Assets/Frame%20Design/frame_deformation.png)
 
 **Arm Length Impact (X-frame):**
 
@@ -160,7 +160,7 @@ The ideal configuration uses the minimum arm length necessary (around 0.3-0.35m)
 
 _Design Recommendation - Based on your observations, which frame type and dimensions would you recommend for a quadcopter design that prioritizes stability and minimal deformation? Explain your reasoning using the results from the simulations._
 
-![[deform_stability.png]]
+![deform_stability.png](https://github.com/Flock137/IPS_Analytic_Lab_2/blob/main/Assets/Frame%20Design/deform_stability.png)
 
 Recommendation: H-frame with Arm Length = 0.35m and Width = 0.15m
 
