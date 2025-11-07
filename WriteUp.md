@@ -10,7 +10,7 @@ This lab focuses on using MATLAB to simulate and analyze the structural behavior
 
 _How does increasing the Young's Modulus (stiffer material) affect the beam's deformation?_
 
-![[Young_mod-matDeform.png]]
+![Young_mod-matDeform.png](https://github.com/Flock137/IPS_Analytic_Lab_2/blob/main/Assets/Material%20Properties/Young_mod-matDeform.png)
 
 The left panel shows Young's Modulus comparison across three materials, while the right panel displays the resulting deformation under the same 500N force. Increasing Young's Modulus significantly decreases deformation:
 
@@ -24,7 +24,8 @@ Carbon fiber and aluminum show high (~70 GPa) stiffness but low of deformation. 
 
 _What impact does increasing the applied force have on the stress and deformation?_
 
-![[carbon_fiber.png]]
+![carbon_fiber.png](https://github.com/Flock137/IPS_Analytic_Lab_2/blob/main/Assets/Material%20Properties/carbon_fiber.png)
+
 Both line plots show perfectly linear behavior. Stress and deformation increase linearly with applied force:
 
 |Force (N)|Stress (MPa)|Deformation (mm)|
